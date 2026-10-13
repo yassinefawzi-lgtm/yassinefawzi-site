@@ -1,6 +1,5 @@
 import fs from "node:fs";
-import { site } from "../src/content/site";
-import { contactConfigured } from "../src/lib/contact";
+import { legal, site } from "../src/content/site";
 const checks = [
   [
     "Photo fournie",
@@ -11,7 +10,12 @@ const checks = [
     Boolean(site.cvPdf && fs.existsSync(`public${site.cvPdf}`)),
   ],
   ["Coordonnées directes", Boolean(site.email || site.linkedin)],
-  ["Formulaire configuré", contactConfigured()],
+  [
+    "Formulaire Netlify déclaré",
+    fs.readFileSync("public/__forms.html", "utf8").includes('name="contact"'),
+  ],
+  ["Indexation activée", site.indexable],
+  ["SIRET et adresse de l’éditeur", Boolean(legal.siret && legal.address)],
 ];
 for (const [label, ok] of checks)
   console.log(`${ok ? "OK" : "À COMPLÉTER"} — ${label}`);

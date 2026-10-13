@@ -86,14 +86,15 @@ test("pages secondaires, métadonnées, états vides et 404", async ({ page }) =
   const response = await page.goto("/page-inexistante");
   expect(response?.status()).toBe(404);
 });
-test("contact non configuré : aucun faux envoi", async ({ page }) => {
+test("contact : formulaire Netlify actif", async ({ page }) => {
   await page.goto("/contact");
   await expect(
     page.getByRole("button", { name: "Envoyer mon message" }),
-  ).toBeDisabled();
-  await expect(
-    page.getByText("Le service d’envoi n’est pas encore connecté."),
-  ).toBeVisible();
+  ).toBeEnabled();
+  await expect(page.locator('form[name="contact"]')).toHaveAttribute(
+    "data-netlify",
+    "true",
+  );
 });
 test("accessibilité automatique des principaux parcours", async ({ page }) => {
   for (const route of [
@@ -139,9 +140,17 @@ test("clavier et menu mobile", async ({ page, isMobile }) => {
   }
 });
 
-test("CV confirmé, document téléchargeable et portrait chargé", async ({ page, request }) => {
+test("CV confirmé, document téléchargeable et portrait chargé", async ({
+  page,
+  request,
+}) => {
   await page.goto("/cv");
-  await expect(page.getByText("Responsable marketing et commercial spécialisé en acquisition numérique", { exact: true })).toBeVisible();
+  await expect(
+    page.getByText(
+      "Responsable marketing et commercial spécialisé en acquisition numérique",
+      { exact: true },
+    ),
+  ).toBeVisible();
   const pdf = await request.get("/cv/yassine-fawzi.pdf");
   expect(pdf.status()).toBe(200);
   expect(pdf.headers()["content-type"]).toContain("application/pdf");
@@ -149,5 +158,7 @@ test("CV confirmé, document téléchargeable et portrait chargé", async ({ pag
   await page.goto("/");
   const portrait = page.locator(".hero-person img");
   await expect(portrait).toBeVisible();
-  await expect.poll(() => portrait.evaluate((img: HTMLImageElement) => img.naturalWidth)).toBeGreaterThan(0);
+  await expect
+    .poll(() => portrait.evaluate((img: HTMLImageElement) => img.naturalWidth))
+    .toBeGreaterThan(0);
 });

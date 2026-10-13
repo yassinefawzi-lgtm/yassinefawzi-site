@@ -1,10 +1,8 @@
 import { site } from "@/content/site";
-import { contactConfigured } from "@/lib/contact";
 import { ContactForm } from "@/components/contact-form";
 import { ExternalLink } from "@/components/actions";
 import { Breadcrumb, PageIntro } from "@/components/ui";
 import { pageMetadata } from "@/lib/seo";
-export const dynamic = "force-dynamic";
 export const metadata = pageMetadata(
   "Contact — parlons de votre besoin",
   "Une opportunité de recrutement ou un projet d’acquisition, d’automatisation ou d’outil métier ? Contactez Yassine Fawzi.",
@@ -54,7 +52,7 @@ export default function Contact() {
             />
           )}
         </aside>
-        <ContactForm configured={contactConfigured()} />
+        <ContactForm />
       </div>
     </div>
   );

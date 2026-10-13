@@ -6,6 +6,11 @@
   NODE_VERSION = "24"
   PNPM_FLAGS = "--shamefully-hoist"
 
+# Indexation et sitemap activés uniquement sur le domaine de production.
+[context.production.environment]
+  NEXT_PUBLIC_SITE_URL = "https://yassinefawzi.fr"
+  NEXT_PUBLIC_INDEXABLE = "true"
+
 [context.deploy-preview.environment]
   NEXT_PUBLIC_INDEXABLE = "false"
 

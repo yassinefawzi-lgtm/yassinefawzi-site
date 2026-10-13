@@ -4,7 +4,7 @@
 
 Rendu serveur/statique, titre et description par page, URL canonique, Open Graph, Twitter Card, image sociale générée, favicon, sitemap automatique, robots.txt, fil d’Ariane, WebSite, ProfilePage/Person et BlogPosting pour les articles publiés. Redirections 308 de `/portfolio` vers `/projets` et `/lab` vers `/growth-lab`. Page 404 personnalisée.
 
-`NEXT_PUBLIC_INDEXABLE=false` par défaut. Les previews Vercel restent noindex même si cette variable a été mal copiée depuis la production. `/experiences`, les mentions légales et la confidentialité restent noindex. Les robots peuvent lire les pages pour détecter noindex ; ne pas interdire tout le crawl en croyant que cela garantit la désindexation.
+`NEXT_PUBLIC_INDEXABLE=true` est défini uniquement pour le contexte production dans `netlify.toml` ; les deploy previews et branch deploys restent noindex. `/experiences`, les mentions légales et la confidentialité restent noindex. Les robots peuvent lire les pages pour détecter noindex ; ne pas interdire tout le crawl en croyant que cela garantit la désindexation.
 
 L’image sociale est locale ; les typographies sont auto-hébergées. Les images ajoutées passent par Next Image. Les illustrations CSS n’impliquent pas de téléchargement raster.
 
@@ -12,7 +12,7 @@ L’image sociale est locale ; les typographies sont auto-hébergées. Les image
 
 Confirmer le domaine, le contenu, le contact et les informations légales ; définir `NEXT_PUBLIC_SITE_URL` puis `NEXT_PUBLIC_INDEXABLE=true` uniquement en production ; redéployer. Vérifier le canonical, l’absence de noindex sur les pages voulues, `/sitemap.xml` et `/robots.txt`. Les pages de campagne ne doivent pas être ajoutées automatiquement au sitemap.
 
-Créer une propriété de domaine Google Search Console, copier l’enregistrement TXT fourni dans la zone DNS du registrar, valider, puis soumettre `https://yassinefawzi.fr/sitemap.xml`. Inspecter quelques URL. Les accès et la validation doivent être réalisés avec le compte du propriétaire.
+Créer une propriété de domaine Google Search Console, copier l’enregistrement TXT fourni dans Netlify (Domains → yassinefawzi.fr → DNS settings → Add new record, type TXT, nom `@`), valider, puis soumettre `https://yassinefawzi.fr/sitemap.xml`. Inspecter quelques URL. Les accès et la validation doivent être réalisés avec le compte du propriétaire.
 
 ## Intentions de recherche
 

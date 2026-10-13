@@ -1,0 +1,24 @@
+<!doctype html>
+<!-- Squelette statique destiné uniquement à la détection des formulaires par Netlify au build. -->
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex" />
+    <title>Formulaires</title>
+  </head>
+  <body>
+    <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="hidden" name="form-name" value="contact" />
+      <input type="hidden" name="subject" />
+      <input name="name" />
+      <input name="email" type="email" />
+      <select name="intent">
+        <option value="recrutement"></option>
+        <option value="prestation"></option>
+        <option value="autre"></option>
+      </select>
+      <textarea name="message"></textarea>
+      <input name="bot-field" />
+    </form>
+  </body>
+</html>
