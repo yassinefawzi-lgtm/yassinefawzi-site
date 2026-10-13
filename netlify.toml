@@ -11,3 +11,7 @@
 
 [context.branch-deploy.environment]
   NEXT_PUBLIC_INDEXABLE = "false"
+
+# Explicitly enable the Next.js runtime when automatic detection does not install it.
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
