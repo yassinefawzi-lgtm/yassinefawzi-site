@@ -59,10 +59,12 @@ export default async function ProjectPage({
             <h2>Mon rôle</h2>
             <p>{project.role}</p>
           </div>
-          <div>
-            <h2>Outils & méthode</h2>
-            <p>{project.tools.join(" · ")}</p>
-          </div>
+          {project.tools.length > 0 && (
+            <div>
+              <h2>Outils</h2>
+              <p>{project.tools.join(" · ")}</p>
+            </div>
+          )}
           <ShareButton title={project.subtitle} />
         </aside>
         <div className="case-content">
@@ -71,49 +73,14 @@ export default async function ProjectPage({
             <p>{project.context}</p>
           </section>
           <section>
-            <h2>Le problème à résoudre.</h2>
-            <p>{project.problem}</p>
-          </section>
-          <section>
-            <h2>Les objectifs.</h2>
-            <ul>
-              {project.objectives.map((o) => (
-                <li key={o}>{o}</li>
-              ))}
-            </ul>
-          </section>
-          <section>
-            <h2>La démarche.</h2>
-            <ol>
-              {project.approach.map((o) => (
-                <li key={o}>{o}</li>
-              ))}
-            </ol>
-          </section>
-          <section>
-            <h2>La solution.</h2>
+            <h2>
+              {project.status === "Concept de service" ||
+              project.status === "Projet personnel"
+                ? "Le projet"
+                : "La mission"}
+            </h2>
             <p>{project.solution}</p>
           </section>
-          <section>
-            <h2>Les résultats disponibles.</h2>
-            <p>{project.results}</p>
-          </section>
-          <section>
-            <h2>Les enseignements.</h2>
-            <p>{project.lessons}</p>
-          </section>
-          <aside className="notice">
-            <strong>Une étude de cas qui reste à enrichir</strong>
-            <ul>
-              {project.pending.map((p) => (
-                <li key={p}>{p}</li>
-              ))}
-            </ul>
-            <p>
-              Le visuel est une illustration conceptuelle, pas une capture du
-              produit. Aucune donnée confidentielle n’est présentée.
-            </p>
-          </aside>
         </div>
       </div>
       <Link href={`/projets/${next.slug}`} className="next-project">

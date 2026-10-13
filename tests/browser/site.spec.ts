@@ -12,7 +12,7 @@ test("accueil : rendu, liens, consentement et absence de débordement", async ({
   });
   await page.goto("/");
   await expect(page.getByRole("heading", { level: 1 })).toContainText(
-    "Des idées.",
+    "Chargé de marketing digital",
   );
   expect(
     await page.evaluate(
@@ -49,9 +49,7 @@ test("portfolio : filtres et étude de cas", async ({ page }) => {
       name: "Génération d’offres de reprise — lire l’étude de cas",
     })
     .click();
-  await expect(
-    page.getByRole("heading", { name: "Les résultats disponibles." }),
-  ).toBeVisible();
+  await expect(page.getByRole("heading", { name: "La mission" })).toBeVisible();
   await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
     "href",
     "https://yassinefawzi.fr/projets/offres-de-reprise",
@@ -135,19 +133,31 @@ test("clavier et menu mobile", async ({ page, isMobile }) => {
       .getByRole("navigation", { name: "Navigation principale" })
       .getByRole("link", { name: "À propos" })
       .click();
-    await expect(page.locator("h1")).toContainText("Apprendre en faisant.");
+    await expect(page.locator("h1")).toContainText(
+      "Yassine Fawzi, chargé de marketing digital",
+    );
   }
 });
 
-test("CV confirmé, document téléchargeable et portrait chargé", async ({ page, request }) => {
+test("CV confirmé, document téléchargeable et portrait chargé", async ({
+  page,
+  request,
+}) => {
   await page.goto("/cv");
-  await expect(page.getByText("Responsable marketing et commercial spécialisé en acquisition numérique", { exact: true })).toBeVisible();
+  await expect(
+    page.getByText(
+      "Responsable marketing et commercial spécialisé en acquisition numérique",
+      { exact: true },
+    ),
+  ).toBeVisible();
   const pdf = await request.get("/cv/yassine-fawzi.pdf");
   expect(pdf.status()).toBe(200);
   expect(pdf.headers()["content-type"]).toContain("application/pdf");
   expect((await pdf.body()).subarray(0, 5).toString()).toBe("%PDF-");
   await page.goto("/");
-  const portrait = page.locator(".hero-person img");
+  const portrait = page.locator(".home-portrait img");
   await expect(portrait).toBeVisible();
-  await expect.poll(() => portrait.evaluate((img: HTMLImageElement) => img.naturalWidth)).toBeGreaterThan(0);
+  await expect
+    .poll(() => portrait.evaluate((img: HTMLImageElement) => img.naturalWidth))
+    .toBeGreaterThan(0);
 });

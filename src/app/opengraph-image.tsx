@@ -1,5 +1,6 @@
 import { ImageResponse } from "next/og";
-export const alt = "Yassine Fawzi — Growth Marketing, automatisation et IA";
+import { site } from "@/content/site";
+export const alt = "Yassine Fawzi — Chargé de marketing digital";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 export default function Image() {
@@ -24,7 +25,7 @@ export default function Image() {
         }}
       >
         <span>YASSINE FAWZI</span>
-        <span>GROWTH · AUTOMATISATION · IA</span>
+        <span>MARKETING DIGITAL</span>
       </div>
       <div
         style={{
@@ -35,8 +36,8 @@ export default function Image() {
           lineHeight: 1.1,
         }}
       >
-        <span>Des idées. Des solutions.</span>
-        <span style={{ fontStyle: "italic" }}>Du concret.</span>
+        <span>Chargé de marketing</span>
+        <span style={{ fontStyle: "italic" }}>digital</span>
       </div>
       <div
         style={{
@@ -46,7 +47,7 @@ export default function Image() {
           paddingTop: 22,
         }}
       >
-        Portfolio & Growth Lab · Normandie, France
+        {site.location}
       </div>
     </div>,
     size,

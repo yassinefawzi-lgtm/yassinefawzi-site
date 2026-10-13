@@ -12,8 +12,8 @@ export default function Skills() {
     <div className="container">
       <Breadcrumb items={[{ name: "Compétences", path: "/competences" }]} />
       <PageIntro
-        label="Compétences / Partir de l’usage"
-        title="Les outils changent. Le besoin reste le point de départ."
+        label="Compétences"
+        title="Acquisition, prospection et automatisation"
       >
         <p>
           Une compétence prend son sens dans une situation concrète. Voici les

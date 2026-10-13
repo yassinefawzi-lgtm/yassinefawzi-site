@@ -2466,3 +2466,76 @@ main:focus {
     margin: 15mm;
   }
 }
+
+/* Homepage: role, assignments and professional background. */
+.home-intro .hero-main {
+  grid-template-columns: minmax(0, 1.7fr) minmax(220px, 1fr);
+  gap: 60px;
+}
+.home-intro h1 {
+  font-size: clamp(2.8rem, 6vw, 5.7rem);
+  line-height: 1.05;
+  letter-spacing: -0.055em;
+}
+.home-intro .hero-copy > p {
+  max-width: 610px;
+}
+.home-intro .location {
+  font-size: 12px;
+}
+.home-portrait {
+  max-width: 340px;
+  justify-self: end;
+}
+.home-portrait img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+}
+.home-projects {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.home-projects .project-art {
+  height: 240px;
+}
+.home-projects .doc-scene {
+  transform: scale(0.8);
+}
+.home-background {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 70px;
+}
+.home-background p + p {
+  margin-top: 20px;
+}
+.home-background .text-link {
+  margin-top: 25px;
+}
+@media (max-width: 1100px) {
+  .home-projects {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 800px) {
+  .home-intro .hero-main,
+  .home-background {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .home-portrait {
+    justify-self: start;
+    max-width: 240px;
+  }
+  .home-projects {
+    grid-template-columns: 1fr;
+  }
+  .home-projects .doc-scene {
+    transform: none;
+  }
+  .home-intro .hero-top {
+    gap: 15px;
+    flex-wrap: wrap;
+  }
+}

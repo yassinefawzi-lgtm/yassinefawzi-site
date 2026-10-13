@@ -3,13 +3,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { categories, type Category, type Project } from "@/content/projects";
 import { ProjectArt } from "./project-art";
-export function ProjectCard({
-  project,
-  index,
-}: {
-  project: Project;
-  index: number;
-}) {
+export function ProjectCard({ project }: { project: Project }) {
   return (
     <article className="project-card">
       <Link
@@ -19,9 +13,7 @@ export function ProjectCard({
       >
         <ProjectArt project={project} />
         <div className="project-card-meta">
-          <span>
-            {String(index + 1).padStart(2, "0")} / {project.category}
-          </span>
+          <span>{project.category}</span>
           <span aria-hidden="true">↗</span>
         </div>
         <h3>{project.subtitle}</h3>
@@ -61,11 +53,7 @@ export function ProjectGallery({ projects }: { projects: Project[] }) {
       </p>
       <div className="project-grid">
         {filtered.map((project) => (
-          <ProjectCard
-            key={project.slug}
-            project={project}
-            index={projects.indexOf(project)}
-          />
+          <ProjectCard key={project.slug} project={project} />
         ))}
       </div>
     </>

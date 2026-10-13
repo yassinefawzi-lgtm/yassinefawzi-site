@@ -11,14 +11,10 @@ export default function ProjectsPage() {
   return (
     <div className="container">
       <Breadcrumb items={[{ name: "Projets", path: "/projets" }]} />
-      <PageIntro
-        label="Portfolio / Du besoin à la réalisation"
-        title="Chaque projet commence par une question."
-      >
+      <PageIntro label="Portfolio" title="Missions et projets personnels">
         <p>
-          Des missions professionnelles et des explorations personnelles. Le
-          contexte, la démarche et les limites sont aussi importants que la
-          solution.
+          Campagnes publicitaires, génération documentaire et organisation
+          d’activité : retrouvez mes missions clients et mes projets personnels.
         </p>
       </PageIntro>
       <ProjectGallery projects={projects} />

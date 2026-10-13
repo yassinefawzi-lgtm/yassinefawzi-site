@@ -9,9 +9,9 @@ export function Footer() {
           Yassine Fawzi<span>PORTFOLIO & GROWTH LAB</span>
         </Link>
         <p>
-          Marketing, automatisation & IA.
+          {site.role}
           <br />
-          Des idées qui prennent forme.
+          Campagnes publicitaires et outils métiers.
         </p>
         <div>
           <Link href="/cv">Mon CV ↗</Link>

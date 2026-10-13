@@ -13,12 +13,12 @@ export default function About() {
       <Breadcrumb items={[{ name: "À propos", path: "/a-propos" }]} />
       <PageIntro
         label="À propos / Le parcours derrière les projets"
-        title="Apprendre en faisant. Avancer en construisant."
+        title="Yassine Fawzi, chargé de marketing digital"
       >
         <p>
-          Je suis Yassine Fawzi. J’aime les sujets qui demandent de comprendre
-          un métier, de relier plusieurs disciplines et de produire quelque
-          chose d’utile.
+          Je suis Yassine Fawzi. Je travaille sur les sujets qui demandent de
+          comprendre un métier, de relier plusieurs disciplines et de produire
+          quelque chose d’utile.
         </p>
       </PageIntro>
       <div className="reading-grid">

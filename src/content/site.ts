@@ -1,10 +1,10 @@
 export const site = {
   name: "Yassine Fawzi",
-  role: "Growth Marketing · Automatisation · IA",
+  role: "Chargé de marketing digital",
   description:
-    "Du besoin métier à la solution concrète : acquisition, automatisation et outils digitaux. Découvrez le parcours et les projets de Yassine Fawzi.",
+    "Yassine Fawzi, chargé de marketing digital : campagnes Google Ads et Instagram, prospection B2B et outils métiers pour les indépendants et petites entreprises.",
   url: process.env.NEXT_PUBLIC_SITE_URL || "https://yassinefawzi.fr",
-  location: "Projet de retour en Normandie · Caen — Rouen",
+  location: "Mobilité : Caen et Rouen",
   availability: "À l’écoute d’opportunités et de projets",
   email: "yassinefawzi@hotmail.fr",
   phone: "06 27 35 38 84",
@@ -75,9 +75,9 @@ export const profile = {
 export const capabilities = [
   {
     number: "01",
-    title: "Trouver les bons leviers.",
+    title: "Campagnes Google Ads et Instagram",
     label: "Acquisition & Growth",
-    text: "Relier un objectif commercial à une campagne, une audience et une mesure utile.",
+    text: "Configuration et suivi de campagnes pour un cabinet d’avocat, des restaurants et une école de réflexologie.",
     example:
       "Accompagnement Google Ads d’un cabinet d’avocat au lancement de son activité.",
     href: "/projets/acquisition-cabinet-avocat",
@@ -85,9 +85,9 @@ export const capabilities = [
   },
   {
     number: "02",
-    title: "Enlever les frictions.",
+    title: "Outils métiers et automatisation",
     label: "Automatisation & métiers",
-    text: "Comprendre les tâches répétitives et construire un fonctionnement plus simple.",
+    text: "Génération d’offres de reprise pour un avocat et logiciel d’organisation pour une wedding planner.",
     example:
       "Outil de génération d’offres de reprise et organisation de l’activité d’une wedding planner.",
     href: "/projets/offres-de-reprise",
@@ -99,12 +99,12 @@ export const capabilities = [
   },
   {
     number: "03",
-    title: "Construire pour apprendre.",
-    label: "IA & produits digitaux",
-    text: "Transformer une idée en prototype, identifier les limites, puis améliorer ce qui compte.",
+    title: "Prospection B2B et contenu SEO",
+    label: "Prospection & contenu",
+    text: "Chez GR.APP&CO : enrichissement d’une base de 10 000 contacts, prospection LinkedIn et email, rédaction de 7 articles SEO.",
     example:
-      "Projet personnel de centralisation d’offres d’emploi et concept de vérification des loyers.",
-    href: "/projets/veille-emploi",
+      "Prospection auprès de CSE et rédaction d’articles SEO pendant mon alternance chez GR.APP&CO.",
+    href: "/a-propos",
     tools: ["Prototypage", "Intégrations API", "Expérimentation"],
   },
 ];

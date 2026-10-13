@@ -4,7 +4,7 @@ import { Breadcrumb, PageIntro } from "@/components/ui";
 import { CvDownload, PrintButton } from "@/components/actions";
 import { pageMetadata } from "@/lib/seo";
 export const metadata = pageMetadata(
-  "CV — Growth Marketing & automatisation",
+  "CV — Chargé de marketing digital",
   "Le parcours professionnel de Yassine Fawzi : expériences, formation, compétences et réalisations. Version web accessible et imprimable.",
   "/cv",
 );
@@ -14,7 +14,7 @@ export default function Cv() {
       <Breadcrumb items={[{ name: "CV", path: "/cv" }]} />
       <PageIntro
         label="Parcours / Version web & impression"
-        title="Un parcours. Plusieurs façons d’être utile."
+        title="Expériences et formation"
       >
         <p>
           Retrouvez les éléments de mon profil dans une version conçue pour être

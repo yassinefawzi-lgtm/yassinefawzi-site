@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { navigation } from "@/content/site";
+import { navigation, site } from "@/content/site";
 export function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
@@ -31,7 +31,7 @@ export function Header() {
         <span className="header-signature">
           Yassine Fawzi
           <br />
-          <span>Marketing & solutions digitales</span>
+          <span>{site.role}</span>
         </span>
         <button
           ref={button}

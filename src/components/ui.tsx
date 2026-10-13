@@ -70,11 +70,11 @@ export function ContactStrip() {
   return (
     <section className="contact-strip">
       <div>
-        <Eyebrow>Et si on en parlait ?</Eyebrow>
+        <Eyebrow>Contact</Eyebrow>
         <h2>
-          Un besoin concret.
+          Une mission ou un recrutement ?
           <br />
-          <em>Une conversation pour commencer.</em>
+          <em>Échangeons sur votre besoin.</em>
         </h2>
       </div>
       <Link href="/contact" className="button button-light">

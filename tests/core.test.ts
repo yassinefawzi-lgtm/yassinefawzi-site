@@ -74,7 +74,7 @@ test("portfolio : slugs uniques et études de cas documentées", () => {
   assert.equal(new Set(projects.map((p) => p.slug)).size, projects.length);
   for (const project of projects) {
     assert.ok(/^[a-z0-9-]+$/.test(project.slug));
-    assert.ok(project.results.length > 30);
-    assert.ok(project.pending.length > 0);
+    assert.ok(project.solution.length > 30);
+    assert.ok(project.context.length > 0);
   }
 });
