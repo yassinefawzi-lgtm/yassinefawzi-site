@@ -13,11 +13,24 @@ export const site = {
   photo: "/images/yassine-fawzi.png",
   photoAlt: "Portrait de Yassine Fawzi",
   cvPdf: "/cv/yassine-fawzi.pdf",
-  indexable:
-    process.env.NEXT_PUBLIC_INDEXABLE === "true" &&
-    (!process.env.VERCEL_ENV || process.env.VERCEL_ENV === "production"),
+  // Activé uniquement en production par netlify.toml ; previews et branches restent noindex.
+  indexable: process.env.NEXT_PUBLIC_INDEXABLE === "true",
   gtmId: process.env.NEXT_PUBLIC_GTM_ID || "",
-  turnstileSiteKey: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "",
+};
+
+// Informations légales de l’éditeur (micro-entrepreneur / entreprise individuelle).
+// Compléter siret et address : ils sont obligatoires pour une activité professionnelle.
+export const legal = {
+  status: "Entrepreneur individuel (micro-entreprise)",
+  siret: "",
+  address: "",
+  vatExempt: true,
+  publicationDirector: "Yassine Fawzi",
+  host: {
+    name: "Netlify, Inc.",
+    address: "101 2nd Street, Suite 600, San Francisco, CA 94105, États-Unis",
+    url: "https://www.netlify.com",
+  },
 };
 
 export const navigation = [

@@ -1,123 +1,89 @@
 "use client";
 import Link from "next/link";
-import Script from "next/script";
 import { useRef, useState, type FormEvent } from "react";
-import { site } from "@/content/site";
-import { contactSchema } from "@/lib/contact";
+import {
+  CONTACT_FORM_ENDPOINT,
+  CONTACT_FORM_NAME,
+  contactSchema,
+  contactSubjects,
+} from "@/lib/contact";
 import { track } from "@/lib/analytics";
-declare global {
-  interface Window {
-    turnstile?: {
-      render: (
-        element: HTMLElement,
-        options: {
-          sitekey: string;
-          action: string;
-          callback: (token: string) => void;
-          "expired-callback": () => void;
-          "error-callback": () => void;
-        },
-      ) => string;
-      reset: (id: string) => void;
-    };
-  }
-}
-export function ContactForm({ configured }: { configured: boolean }) {
+export function ContactForm() {
   const [phase, setPhase] = useState<"idle" | "sending" | "success" | "error">(
     "idle",
   );
   const [status, setStatus] = useState("");
-  const [token, setToken] = useState("");
   const startedAt = useRef(0);
-  const widget = useRef<HTMLDivElement>(null);
-  const widgetId = useRef<string | null>(null);
-  const [challenge, setChallenge] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
-  function renderChallenge() {
-    if (widget.current && window.turnstile && !widgetId.current)
-      widgetId.current = window.turnstile.render(widget.current, {
-        sitekey: site.turnstileSiteKey,
-        action: "contact",
-        callback: setToken,
-        "expired-callback": () => setToken(""),
-        "error-callback": () => {
-          setToken("");
-          setPhase("error");
-          setStatus(
-            "La vérification antispam n’a pas pu charger. Réessayez ou utilisez le contact direct.",
-          );
-        },
-      });
-  }
   async function submit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (phase === "sending" || !configured) return;
+    if (phase === "sending") return;
     const form = new FormData(e.currentTarget);
-    const values = {
+    const result = contactSchema.safeParse({
       name: form.get("name"),
       email: form.get("email"),
       intent: form.get("intent"),
       message: form.get("message"),
-      website: form.get("website"),
-      token,
-      startedAt: startedAt.current,
-    };
-    const result = contactSchema.safeParse(values);
+    });
     if (!result.success) {
       setPhase("error");
       setStatus(result.error.issues[0].message);
       return;
     }
-    if (!token) {
+    // Honeypot rempli ou envoi quasi instantané : probablement un robot.
+    if (
+      form.get("bot-field") ||
+      (startedAt.current && Date.now() - startedAt.current < 2000)
+    ) {
       setPhase("error");
-      setStatus("Veuillez terminer la vérification antispam.");
+      setStatus(
+        "Vérification antispam échouée. Rechargez la page et réessayez.",
+      );
       return;
     }
     setPhase("sending");
     setStatus("Envoi en cours…");
     try {
-      const response = await fetch("/api/contact", {
+      const response = await fetch(CONTACT_FORM_ENDPOINT, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(result.data),
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams({
+          "form-name": CONTACT_FORM_NAME,
+          subject: `[Site personnel] ${contactSubjects[result.data.intent]}`,
+          "bot-field": "",
+          ...result.data,
+        }).toString(),
         signal: AbortSignal.timeout(25_000),
       });
-      const data = (await response.json()) as { message: string };
-      setStatus(data.message);
-      setPhase(response.ok ? "success" : "error");
-      if (response.ok) {
-        track("contact_form_submit", { intent: result.data.intent });
-        formRef.current?.reset();
-        startedAt.current = Date.now();
-      }
+      if (!response.ok) throw new Error(String(response.status));
+      setPhase("success");
+      setStatus(
+        "Votre message a bien été envoyé. Merci, je vous réponds rapidement.",
+      );
+      track("contact_form_submit", { intent: result.data.intent });
+      formRef.current?.reset();
+      startedAt.current = Date.now();
     } catch {
       setPhase("error");
       setStatus(
-        "La connexion a été interrompue. L’envoi n’a pas pu être confirmé.",
+        "L’envoi n’a pas pu être confirmé. Réessayez plus tard ou utilisez le contact direct.",
       );
-    } finally {
-      setToken("");
-      if (widgetId.current) window.turnstile?.reset(widgetId.current);
     }
   }
   return (
     <form
       className="contact-form"
+      name={CONTACT_FORM_NAME}
+      method="POST"
+      data-netlify="true"
+      netlify-honeypot="bot-field"
       onSubmit={submit}
       ref={formRef}
       onFocus={() => {
         if (!startedAt.current) startedAt.current = Date.now();
       }}
     >
-      {!configured && (
-        <div className="notice" role="status">
-          <strong>Formulaire en préparation.</strong>
-          <p>
-            Le service d’envoi n’est pas encore connecté. Aucun message ne peut
-            être transmis pour le moment.
-          </p>
-        </div>
-      )}
+      <input type="hidden" name="form-name" value={CONTACT_FORM_NAME} />
       <div className="form-grid">
         <div className="field">
           <label htmlFor="name">Votre nom *</label>
@@ -170,47 +136,20 @@ export function ContactForm({ configured }: { configured: boolean }) {
         </small>
       </div>
       <div className="honeypot" aria-hidden="true">
-        <label htmlFor="website">Laisser ce champ vide</label>
-        <input id="website" name="website" tabIndex={-1} autoComplete="off" />
+        <label htmlFor="bot-field">Laisser ce champ vide</label>
+        <input
+          id="bot-field"
+          name="bot-field"
+          tabIndex={-1}
+          autoComplete="off"
+        />
       </div>
       <p className="form-info">
         Les champs marqués * sont nécessaires pour répondre à votre demande. Vos
         coordonnées ne sont pas envoyées aux outils d’analyse.{" "}
         <Link href="/confidentialite">Utilisation de vos données</Link>.
       </p>
-      {configured && (
-        <>
-          <p className="form-info">
-            La vérification antispam est assurée par Cloudflare Turnstile,
-            chargé uniquement à votre demande.
-          </p>
-          {!challenge && (
-            <button
-              type="button"
-              className="button button-outline"
-              onClick={() => setChallenge(true)}
-            >
-              Activer la vérification antispam
-            </button>
-          )}
-          <div ref={widget} />
-          {challenge && (
-            <Script
-              src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit"
-              onReady={renderChallenge}
-              onError={() => {
-                setPhase("error");
-                setStatus("Le service antispam est indisponible.");
-              }}
-            />
-          )}
-        </>
-      )}
-      <button
-        type="submit"
-        className="button"
-        disabled={!configured || phase === "sending"}
-      >
+      <button type="submit" className="button" disabled={phase === "sending"}>
         {phase === "sending" ? "Envoi en cours…" : "Envoyer mon message ↗"}
       </button>
       <div aria-live="polite" aria-atomic="true">

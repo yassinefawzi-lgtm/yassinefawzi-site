@@ -19,45 +19,43 @@ export default function Privacy() {
         title="Vos données, avec mesure."
       />
       <div className="legal-copy">
-        <div className="notice">
-          Document de préparation à valider avant ouverture au public.
-          Coordonnées du responsable, bases légales applicables, durées
-          retenues, prestataires et modalités de transfert doivent être
-          confirmés.
-        </div>
         <section>
           <h2>Responsable du traitement</h2>
           <p>
-            {site.name}. Adresse et contact pour l’exercice des droits :{" "}
-            <strong>à compléter</strong>.
+            {site.name}, entrepreneur individuel. Contact pour toute question ou
+            pour exercer vos droits :{" "}
+            <a href={`mailto:${site.email}`}>{site.email}</a>.
           </p>
         </section>
         <section>
           <h2>Demandes de contact</h2>
           <p>
             Le formulaire demande un nom, un email, le type de demande et un
-            message pour permettre une réponse. Une fois configuré, le serveur
-            transmet ces informations au prestataire d’envoi Resend et à la
-            boîte du destinataire. Aucune base de données de contacts n’est
-            intégrée au site.
+            message, uniquement pour pouvoir vous répondre. Les messages sont
+            reçus et stockés par Netlify Forms, service de l’hébergeur du site
+            (Netlify, Inc., États-Unis), puis transmis par email à {site.name}.
+            Aucune autre base de contacts n’est constituée et les données ne
+            sont ni revendues ni utilisées à des fins publicitaires.
           </p>
           <p>
-            La base légale doit être précisée selon le type de demande et
-            l’activité réelle. Durée de conservation des échanges et gestion des
-            sauvegardes :{" "}
-            <strong>
-              à définir et appliquer dans la messagerie et chez les prestataires
-            </strong>
-            .
+            Base légale : les mesures précontractuelles prises à votre demande
+            (mission, recrutement) ou l’intérêt légitime à répondre aux
+            sollicitations reçues. Les messages sont conservés au maximum trois
+            ans après le dernier échange, puis supprimés.
+          </p>
+          <p>
+            Netlify étant établi aux États-Unis, ce transfert est encadré par
+            les garanties prévues par le RGPD (clauses contractuelles types de
+            la Commission européenne).
           </p>
         </section>
         <section>
           <h2>Protection antispam</h2>
           <p>
-            Une vérification Cloudflare Turnstile peut être chargée à la demande
-            du visiteur pour protéger le formulaire. Elle implique une
-            communication avec Cloudflare. Le serveur vérifie le jeton, l’hôte
-            et l’action avant de transmettre un message.
+            Le formulaire comporte un champ piège invisible pour limiter les
+            envois automatisés. Netlify applique également un filtrage antispam
+            aux messages reçus. Aucun service antispam tiers n’est chargé dans
+            votre navigateur.
           </p>
         </section>
         <section>
@@ -70,10 +68,10 @@ export default function Privacy() {
           </p>
           <p>
             Les événements prévus portent sur les pages, les projets, les
-            boutons, le téléchargement du CV et les envois confirmés par le
-            service de messagerie. Les noms, emails et textes du formulaire ne
-            sont pas inclus dans ces événements. Les campagnes UTM sont limitées
-            à une liste d’identifiants autorisés.
+            boutons, le téléchargement du CV et les envois confirmés du
+            formulaire. Les noms, emails et textes du formulaire ne sont pas
+            inclus dans ces événements. Les campagnes UTM sont limitées à une
+            liste d’identifiants autorisés.
           </p>
           <p>
             Le conteneur GTM devra respecter ces choix pour chaque tag. Liste
@@ -97,11 +95,11 @@ export default function Privacy() {
         <section>
           <h2>Vos droits</h2>
           <p>
-            Selon le traitement, vous pouvez disposer de droits d’accès, de
-            rectification, d’effacement, de limitation, d’opposition ou de
-            portabilité. Les coordonnées permettant de les exercer doivent être
-            ajoutées avant publication. Vous pouvez également adresser une
-            réclamation à la CNIL.
+            Vous disposez de droits d’accès, de rectification, d’effacement, de
+            limitation, d’opposition et, le cas échéant, de portabilité. Pour
+            les exercer, écrivez à{" "}
+            <a href={`mailto:${site.email}`}>{site.email}</a>. Vous pouvez
+            également adresser une réclamation à la CNIL (www.cnil.fr).
           </p>
           <p>
             Référence :{" "}
